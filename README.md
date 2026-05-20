@@ -1,6 +1,6 @@
 # Comparative Empirical Analysis of End-to-End Arabic Automatic Speech Recognition: From Recurrent Neural Networks to Self-Supervised Transformers
 
-**Authors:** Senior AI Research Scientist & Speech Recognition Engineer  
+**Authors:** AbdulRahman Essam  
 **Affiliation:** Advanced AI & Speech Processing Laboratory  
 **Date:** May 20, 2026  
 
