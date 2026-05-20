@@ -388,6 +388,149 @@ Despite the larger cell size, the BiGRU model features fewer sequential gates, m
 ### 5.3 Wav2Vec 2.0 Transformer Architecture
 Wav2Vec 2.0 (shown in Figure 3) is a self-supervised framework that learns robust representations from raw audio waveforms.
 
+---
+# Fine-Tuning Configuration
+
+## Base Model
+
+```python
+MODEL_ID = "jonatasgrosman/wav2vec2-large-xlsr-53-arabic"
+```
+
+---
+
+# Dataset Split
+
+| Split | Samples |
+|---|---|
+| Train | 40000 |
+| Validation | 3000 |
+| Test | 3000 |
+
+---
+
+# Audio Configuration
+
+```python
+sampling_rate = 16000
+```
+
+- Mono audio
+- Resampled to 16 kHz
+
+---
+
+# Training Hyperparameters
+
+| Parameter | Value |
+|---|---|
+| Batch Size | 4 |
+| Gradient Accumulation | 2 |
+| Effective Batch Size | 8 |
+| Learning Rate | 3e-6 |
+| Warmup Steps | 50 |
+| Max Steps | 4000 |
+| Evaluation Steps | 100 |
+| Save Steps | 100 |
+| Logging Steps | 10 |
+
+---
+
+# Optimization
+
+## Mixed Precision
+
+```python
+fp16=True
+```
+
+## Gradient Checkpointing
+
+```python
+model.gradient_checkpointing_enable()
+```
+
+## Frozen Feature Encoder
+
+```python
+model.freeze_feature_encoder()
+```
+
+---
+
+# Trainer Configuration
+
+```python
+load_best_model_at_end=True
+metric_for_best_model="wer"
+greater_is_better=False
+save_total_limit=2
+```
+
+---
+
+# Early Stopping
+
+```python
+EarlyStoppingCallback(
+    early_stopping_patience=4,
+    early_stopping_threshold=0.001
+)
+```
+
+---
+
+# Data Processing
+
+```python
+processor = Wav2Vec2Processor.from_pretrained(MODEL_ID)
+```
+
+- Audio → `input_values`
+- Text → `labels`
+
+---
+
+# Loss Function
+
+```text
+CTC Loss
+```
+
+---
+
+# Evaluation Metric
+
+```text
+WER (Word Error Rate)
+```
+
+Implemented using:
+
+```python
+from jiwer import wer
+```
+
+---
+
+# Hardware
+
+```text
+GPU: NVIDIA Tesla T4
+CUDA: Enabled
+Torch: 2.10.0+cu128
+```
+
+---
+
+# Final Performance
+
+| Metric | Score |
+|---|---|
+| Validation WER | 15.56% |
+| Test WER | 15.54% |
+---
+
 ```
                 Raw Time-Domain Waveform X
                             │
