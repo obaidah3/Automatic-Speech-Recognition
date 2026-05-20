@@ -16,6 +16,10 @@ This report dissects the signal processing mechanics of the preprocessing pipeli
 
 ---
 
+<img width="2752" height="1536" alt="img" src="https://github.com/user-attachments/assets/d3f57e1f-7591-469f-876d-c1325d8360f2" />
+
+---
+
 ## 1. Introduction
 
 ### 1.1 Automatic Speech Recognition (ASR) Overview
